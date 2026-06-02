@@ -322,20 +322,6 @@ footer {
 }
 footer span { color: var(--gold); opacity: 0.6; }
 
-/* LONG PRESS TIP */
-.longpress-tip {
-  display: none;
-  font-size: 1rem;
-  color: #d08601;
-  margin-top: 14px;
-  text-align: center;
-  font-weight: 900;
-  letter-spacing: 0.3px;
-}
-.longpress-tip span {
-  color: var(--gold);
-  font-weight: 600;
-}
 
 @media (max-width: 480px) {
   .price-compare { gap: 12px; }
@@ -352,8 +338,7 @@ footer span { color: var(--gold); opacity: 0.6; }
   <div class="badge">🇨🇳 China → 🇳🇬 Nigeria · Direct Sourcing</div>
   <h1>Stop Paying Double For<br><span>The Same Products</span></h1>
   <p>Some Nigerians are buying the exact same items you buy — for up to 40% less. Here's how they do it.</p>
-  <a href="https://chat.whatsapp.com/DdjjarQyUNtAXRRQlzke3A" class="btn-gold">Join Our WhatsApp Group →</a>
-  <p class="longpress-tip" style="display:block; color:#d08601;"><strong>👆 If Join Chat takes you to Play Store, press and hold the button and select "Open in WhatsApp"</strong></p>
+  <a href="go.html" class="btn-gold">Join Our WhatsApp Group →</a>
     <div class="stat"><span class="stat-num">400+</span><span class="stat-label">Customers</span></div>
     <div class="stat"><span class="stat-num">40%</span><span class="stat-label">Average Savings</span></div>
     <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Factory Direct</span></div>
@@ -474,8 +459,7 @@ footer span { color: var(--gold); opacity: 0.6; }
   <p class="section-sub">Once the batch closes, you wait for the next one. Join now to place your order in this round.</p>
   <div class="batch-note">⚡ Current batch is open — limited spots</div>
   <br><br>
-  <a href="https://chat.whatsapp.com/DdjjarQyUNtAXRRQlzke3A" class="btn-gold">Join the WhatsApp Group Now →</a>
-  <p class="longpress-tip" style="display:block;"><strong>👆 If Join Chat takes you to Play Store, press and hold the button and select "Open in WhatsApp"</strong></p>
+  <a href="go.html" class="btn-gold">Join the WhatsApp Group Now →</a>
 
 <footer>
   &copy; 2024 <span>Fers Innova Ltd</span> · China to Nigeria, Factory Direct
@@ -512,7 +496,6 @@ document.querySelectorAll('a.btn-gold').forEach(btn => {
 
 // Show long press tip if inside Facebook browser
 if (isFacebookBrowser) {
-  document.querySelectorAll('.longpress-tip').forEach(el => el.style.display = 'block');
 }
 
 function generateEventId() {
@@ -553,5 +536,4 @@ document.querySelectorAll('a.btn-gold').forEach(btn => {
 });
 </script>
 </body>
-      </html>
-                                                                     
+</html>
