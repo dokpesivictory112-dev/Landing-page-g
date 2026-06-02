@@ -112,8 +112,8 @@ body {
 /* BUTTONS */
 .btn-gold {
   display: inline-block;
-  background: var(--gold);
-  color: #0B1A2E;
+  background: #25D366;
+  color: #ffffff;
   font-family: 'DM Sans', sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
@@ -123,7 +123,7 @@ body {
   letter-spacing: 0.5px;
   transition: all 0.25s ease;
 }
-.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(208,134,1,0.35); }
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.35); }
 
 /* SECTIONS */
 section {
@@ -322,6 +322,21 @@ footer {
 }
 footer span { color: var(--gold); opacity: 0.6; }
 
+/* LONG PRESS TIP */
+.longpress-tip {
+  display: none;
+  font-size: 1rem;
+  color: #d08601;
+  margin-top: 14px;
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+}
+.longpress-tip span {
+  color: var(--gold);
+  font-weight: 600;
+}
+
 @media (max-width: 480px) {
   .price-compare { gap: 12px; }
   .price-card { min-width: 140px; padding: 20px 16px; }
@@ -337,8 +352,8 @@ footer span { color: var(--gold); opacity: 0.6; }
   <div class="badge">🇨🇳 China → 🇳🇬 Nigeria · Direct Sourcing</div>
   <h1>Stop Paying Double For<br><span>The Same Products</span></h1>
   <p>Some Nigerians are buying the exact same items you buy — for up to 40% less. Here's how they do it.</p>
-  <a href="intent://invite/DdjjarQyUNtAXRRQlzke3A#Intent;scheme=https;package=com.whatsapp;S.browser_fallback_url=https://chat.whatsapp.com/DdjjarQyUNtAXRRQlzke3A;end" class="btn-gold">Join Our WhatsApp Group →</a>
-  <div class="stat-bar">
+  <a href="https://chat.whatsapp.com/DdjjarQyUNtAXRRQlzke3A" class="btn-gold">Join Our WhatsApp Group →</a>
+  <p class="longpress-tip" style="display:block; color:#d08601;"><strong>👆 If Join Chat takes you to Play Store, press and hold the button and select "Open in WhatsApp"</strong></p>
     <div class="stat"><span class="stat-num">400+</span><span class="stat-label">Customers</span></div>
     <div class="stat"><span class="stat-num">40%</span><span class="stat-label">Average Savings</span></div>
     <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Factory Direct</span></div>
@@ -459,8 +474,8 @@ footer span { color: var(--gold); opacity: 0.6; }
   <p class="section-sub">Once the batch closes, you wait for the next one. Join now to place your order in this round.</p>
   <div class="batch-note">⚡ Current batch is open — limited spots</div>
   <br><br>
-  <a href="intent://invite/DdjjarQyUNtAXRRQlzke3A#Intent;scheme=https;package=com.whatsapp;S.browser_fallback_url=https://chat.whatsapp.com/DdjjarQyUNtAXRRQlzke3A;end" class="btn-gold">Join the WhatsApp Group Now →</a>
-</div>
+  <a href="https://chat.whatsapp.com/DdjjarQyUNtAXRRQlzke3A" class="btn-gold">Join the WhatsApp Group Now →</a>
+  <p class="longpress-tip" style="display:block;"><strong>👆 If Join Chat takes you to Play Store, press and hold the button and select "Open in WhatsApp"</strong></p>
 
 <footer>
   &copy; 2024 <span>Fers Innova Ltd</span> · China to Nigeria, Factory Direct
@@ -469,6 +484,36 @@ footer span { color: var(--gold); opacity: 0.6; }
 <script>
 const PIXEL_ID = '950535357880062';
 const CAPI_TOKEN = 'EAGDaJTh2MZCIBRpeQIpnyFa5AacQiODSrc6jgdepVI6SAUUgl7zkIW4ZBGmoZCmUzjsCO5ZAj2g7viEZAsrrRag2sXYirmQ5sYQWIRKjtF3W3BY3MbNKczeKAkgYM6M8GSTaYZAJ0hqpGURjlmfkVCB1QrkQAMVT0p8ajR3xurQ9Nmzjzz9ZCWBf75ZA4RkhNPfrjAZDZD';
+
+// Store fbclid from URL as fbc cookie for better attribution
+(function() {
+  const fbclid = new URLSearchParams(window.location.search).get('fbclid');
+  if (fbclid) {
+    const fbc = 'fb.1.' + Date.now() + '.' + fbclid;
+    document.cookie = '_fbc=' + fbc + ';path=/;max-age=7776000';
+  }
+})();
+
+// Detect Facebook in-app browser
+const isFacebookBrowser = navigator.userAgent.indexOf('FBAN') > -1 || navigator.userAgent.indexOf('FBAV') > -1 || navigator.userAgent.indexOf('FB_IAB') > -1;
+
+const WHATSAPP_NORMAL = 'intent://invite/DdjjarQyUNtAXRRQlzke3A#Intent;scheme=https;package=com.whatsapp;S.browser_fallback_url=https://chat.whatsapp.com/DdjjarQyUNtAXRRQlzke3A;end';
+const WHATSAPP_FALLBACK = 'https://chat.whatsapp.com/DdjjarQyUNtAXRRQlzke3A';
+
+// Set correct link based on browser
+document.querySelectorAll('a.btn-gold').forEach(btn => {
+  if (isFacebookBrowser) {
+    btn.href = WHATSAPP_FALLBACK;
+    btn.target = '_blank';
+  } else {
+    btn.href = WHATSAPP_NORMAL;
+  }
+});
+
+// Show long press tip if inside Facebook browser
+if (isFacebookBrowser) {
+  document.querySelectorAll('.longpress-tip').forEach(el => el.style.display = 'block');
+}
 
 function generateEventId() {
   return 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
@@ -484,12 +529,13 @@ function sendCAPI(eventId) {
       action_source: 'website',
       user_data: {
         client_user_agent: navigator.userAgent,
+        client_ip_address: '',
         fbp: document.cookie.split(';').find(c => c.trim().startsWith('_fbp='))?.split('=')[1] || '',
-        fbc: document.cookie.split(';').find(c => c.trim().startsWith('_fbc='))?.split('=')[1] || ''
+        fbc: document.cookie.split(';').find(c => c.trim().startsWith('_fbc='))?.split('=')[1] || (new URLSearchParams(window.location.search).get('fbclid') ? 'fb.1.' + Date.now() + '.' + new URLSearchParams(window.location.search).get('fbclid') : '')
       }
     }]
   };
-  fetch('https://graph.facebook.com/v18.0/' + PIXEL_ID + '/events?access_token=' + CAPI_TOKEN, {
+  fetch('https://graph.facebook.com/v20.0/' + PIXEL_ID + '/events?access_token=' + CAPI_TOKEN, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
@@ -507,4 +553,5 @@ document.querySelectorAll('a.btn-gold').forEach(btn => {
 });
 </script>
 </body>
-</html>
+      </html>
+                                                                     
