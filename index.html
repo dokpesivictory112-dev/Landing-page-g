@@ -478,26 +478,6 @@ const CAPI_TOKEN = 'EAGDaJTh2MZCIBRpeQIpnyFa5AacQiODSrc6jgdepVI6SAUUgl7zkIW4ZBGm
   }
 })();
 
-// Detect Facebook in-app browser
-const isFacebookBrowser = navigator.userAgent.indexOf('FBAN') > -1 || navigator.userAgent.indexOf('FBAV') > -1 || navigator.userAgent.indexOf('FB_IAB') > -1;
-
-const WHATSAPP_NORMAL = 'intent://invite/DdjjarQyUNtAXRRQlzke3A#Intent;scheme=https;package=com.whatsapp;S.browser_fallback_url=https://chat.whatsapp.com/DdjjarQyUNtAXRRQlzke3A;end';
-const WHATSAPP_FALLBACK = 'https://chat.whatsapp.com/DdjjarQyUNtAXRRQlzke3A';
-
-// Set correct link based on browser
-document.querySelectorAll('a.btn-gold').forEach(btn => {
-  if (isFacebookBrowser) {
-    btn.href = WHATSAPP_FALLBACK;
-    btn.target = '_blank';
-  } else {
-    btn.href = WHATSAPP_NORMAL;
-  }
-});
-
-// Show long press tip if inside Facebook browser
-if (isFacebookBrowser) {
-}
-
 function generateEventId() {
   return 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 }
@@ -537,5 +517,4 @@ document.querySelectorAll('a.btn-gold').forEach(btn => {
 </script>
 </body>
 </html>
-
 
